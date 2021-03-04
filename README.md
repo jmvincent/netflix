@@ -1,7 +1,7 @@
 # Netflix Data Analysis {Python}
 This dataset consists of TV Shows and Movies listed on Netflix, [sourced from Kaggle](https://www.kaggle.com/shivamb/netflix-shows)
-  
-  
+<br/>
+<br/>
 #### Packages used:
 ```
 import numpy as np # linear algebra
@@ -12,8 +12,8 @@ import matplotlib.ticker as mtick # plot formatting
 from scipy.stats import norm # stats package for data aggregations
 import seaborn as sns # plotting output
 ```
-  
-  
+<br/>  
+<br/>
 ### Analysis 1: United States shows by type and month added
 ###### This demonstrates the quantity of shows in the United States available on Netflix over time
 ###### The steps taken for to construct this plot are as follows:
@@ -21,14 +21,14 @@ import seaborn as sns # plotting output
 * Combine `ratings` into viewer maturity category (youth, teen or adult)
 * Group and pivot data to create proper series
 * Construct plots
-  
-  
+<br/>
+<br/>
 ### Analysis 2: Show type by maturity and year added 
 ###### This demonstrates the % of shows that are movies each year, by maturity group (adult, teen, youth) for a specified country
 ###### The steps taken for to construct this plot are as follows:
-TBD
-  
-  
+* TBD
+<br/>
+<br/>
 ## Analysis 1: United States shows by type and month added
 #### Step 1: Parse the data by date_added
 In this series of code block we...
@@ -50,8 +50,8 @@ country_titles = df_clean[df_clean['country'].str.contains('United States', na =
 country_titles = country_titles.drop('level_0', 1) # Drop intermediate index column from date transform
 # print(country_titles.head())
 ```
-  
-  
+<br/>
+<br/>
 #### Step 2: Combine ratings into viewer maturity category (youth, teen or adult)
 In this series of code block we...
 1. Re-classify each `rating` into a `rating_class` based on maturity level
@@ -79,8 +79,8 @@ country_tv = country_titles[country_titles['type'] == 'TV Show'].reset_index()
 country_movies = country_movies.drop('level_0', 1)
 country_tv = country_tv.drop('level_0', 1)
 ```
-  
-  
+<br/>
+<br/>
 #### Step 3: Group and pivot data to create proper series
 In this series of code block we...
 1. `groupby` each dataframe by maturity (`rating_class`) and month added (`mmyy_added`)
@@ -103,8 +103,8 @@ dtrc_movies_pivot = dtrc_movies.pivot(
 dtrc_movies_pivot = dtrc_movies_pivot.fillna(0).reset_index()
 # print(dtrc_movies_pivot)
 ```
-  
-  
+<br/>
+<br/>
 #### Step 4: Construct plots
 In this series of code block we...
 1. Establish the figure sizes
@@ -112,7 +112,6 @@ In this series of code block we...
 3. Plot each set of data
 4. Add labels and titles
 5. Save the figures
-
 ```
 plt.figure(figsize=(20,10))
 legend = ['Adult','Teen','Youth']
@@ -126,7 +125,6 @@ plt.ylabel('Count of Movies')
 plt.savefig('USMoviesByMonthByMaturity.png')
 plt.show()
 plt.clf()
-
 plt.figure(figsize=(20,10))
 legend = ['Adult','Teen','Youth']
 plt.plot(dtrc_tv_pivot['mmyy_added'], dtrc_tv_pivot['Adult'],color='red',marker='+')
@@ -139,7 +137,7 @@ plt.ylabel('Count of TV Shows')
 plt.savefig('USTVByMonthByMaturity.png')
 plt.show()
 ```
-  
+<br/>
 ### US Movies By Month and Maturity Level
 ![US Movie by Month and Maturity](https://github.com/jmvincent/netflix/blob/main/USMoviesByMonthByMaturity.png)
 ### US TV By Month and Maturity Level
