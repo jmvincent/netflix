@@ -29,7 +29,7 @@ import seaborn as sns # plotting output
 ~~* Construct plots~~
 
 ## Analysis 1: United States shows by type and month added
-###### Step 1: Parse the data by date_added
+#### Step 1: Parse the data by date_added
 In this series of code block we...
 1. Read the data into a dataframe
 2. Parse the date strings into month and year columns
@@ -48,7 +48,38 @@ country_titles = df_clean[df_clean['country'].str.contains('United States', na =
 country_titles = country_titles.drop('level_0', 1) # Drop intermediate index column from date transform
 # print(country_titles.head())
 ```
-
-###### Step 2: Combine ratings into viewer maturity category (youth, teen or adult)
-###### Step 3: Group and pivot data to create proper series
-###### Step 4: Construct plots
+#### 
+#### 
+#### Step 2: Combine ratings into viewer maturity category (youth, teen or adult)
+In this series of code block we...
+1. Re-classify each `rating` into a `rating_class` based on maturity level
+2. Drop all rows with null values in the new `rating_class` column
+3. Separate the dataframe into one dataframe for each `type` of show (`country_movies` and `country_tv`)
+4. Drop the old index from the original dataframe to not be confused in new clean and structured dataframes
+```
+country_titles.loc[(country_titles['rating'] == 'R') | 
+                   (country_titles['rating'] == 'TV-MA') |
+                   (country_titles['rating'] == 'NC-17')
+                       , 'rating_class'] = 'Adult'
+country_titles.loc[(country_titles['rating'] == 'TV-Y') | 
+                   (country_titles['rating'] == 'TV-Y7') | 
+                   (country_titles['rating'] == 'G') | 
+                   (country_titles['rating'] == 'TV-G') |
+                   (country_titles['rating'] == 'PG') | 
+                   (country_titles['rating'] == 'TV-PG')
+                       , 'rating_class'] = 'Youth'
+country_titles.loc[(country_titles['rating'] == 'PG-13') | 
+                   (country_titles['rating'] == 'TV-14')
+                       , 'rating_class'] = 'Teen'
+country_titles.dropna(subset=['rating_class'], inplace=True) 
+country_movies = country_titles[country_titles['type'] == 'Movie'].reset_index()
+country_tv = country_titles[country_titles['type'] == 'TV Show'].reset_index()
+country_movies = country_movies.drop('level_0', 1)
+country_tv = country_tv.drop('level_0', 1)
+```
+#### 
+#### 
+#### Step 3: Group and pivot data to create proper series
+#### 
+#### 
+#### Step 4: Construct plots
