@@ -2,6 +2,7 @@
 This dataset consists of TV Shows and Movies listed on Netflix, [sourced from Kaggle](https://www.kaggle.com/shivamb/netflix-shows)  
 <br/>  
 <br/>  
+
 #### Packages used:  
 ```  
 import numpy as np # linear algebra  
@@ -14,8 +15,11 @@ import seaborn as sns # plotting output
 ```
 <br/>  
 <br/>  
+
 ### Analysis 1: United States shows by type and month added  
+
 ###### This demonstrates the quantity of shows in the United States available on Netflix over time  
+
 ###### The steps taken for to construct this plot are as follows:  
 * Parse the data by `date_added`  
 * Combine `ratings` into viewer maturity category (youth, teen or adult)  
@@ -23,13 +27,18 @@ import seaborn as sns # plotting output
 * Construct plots  
 <br/>  
 <br/>  
+
 ### Analysis 2: Show type by maturity and year added   
+
 ###### This demonstrates the % of shows that are movies each year, by maturity group (adult, teen, youth) for a specified country  
+
 ###### The steps taken for to construct this plot are as follows:  
 * TBD  
 <br/>  
 <br/>  
+
 ## Analysis 1: United States shows by type and month added  
+
 #### Step 1: Parse the data by date_added  
 In this series of code block we...  
 1. Read the data into a dataframe  
@@ -52,7 +61,9 @@ country_titles = country_titles.drop('level_0', 1) # Drop intermediate index col
 ```
 <br/>  
 <br/>  
+
 #### Step 2: Combine ratings into viewer maturity category (youth, teen or adult)  
+
 In this series of code block we...  
 1. Re-classify each `rating` into a `rating_class` based on maturity level  
 2. Drop all rows with null values in the new `rating_class` column  
@@ -81,7 +92,9 @@ country_tv = country_tv.drop('level_0', 1)
 ```
 <br/>  
 <br/>  
+
 #### Step 3: Group and pivot data to create proper series  
+
 In this series of code block we...  
 1. `groupby` each dataframe by maturity (`rating_class`) and month added (`mmyy_added`)  
 2. `pivot` each dataframe to aggregate counts into columns that can be plotted  
@@ -105,7 +118,9 @@ dtrc_movies_pivot = dtrc_movies_pivot.fillna(0).reset_index()
 ```
 <br/>  
 <br/>  
+
 #### Step 4: Construct plots  
+
 In this series of code block we...  
 1. Establish the figure sizes  
 2. Create legend labels  
@@ -138,7 +153,11 @@ plt.savefig('USTVByMonthByMaturity.png')
 plt.show()
 ```
 <br/>  
+
 ### US Movies By Month and Maturity Level  
+
 ![US Movie by Month and Maturity](https://github.com/jmvincent/netflix/blob/main/USMoviesByMonthByMaturity.png)  
+
 ### US TV By Month and Maturity Level  
+
 ![US TV by Month and Maturity](https://github.com/jmvincent/netflix/blob/main/USTVByMonthByMaturity.png)  
