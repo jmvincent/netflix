@@ -16,27 +16,6 @@ import seaborn as sns # plotting output
 <br/>  
 <br/>  
 
-### Analysis 1: United States shows by type and month added  
-
-###### This demonstrates the quantity of shows in the United States available on Netflix over time  
-
-###### The steps taken for to construct this plot are as follows:  
-* Parse the data by `date_added`  
-* Combine `ratings` into viewer maturity category (youth, teen or adult)  
-* Group and pivot data to create proper series  
-* Construct plots  
-<br/>  
-<br/>  
-
-### Analysis 2: Show type by maturity and year added   
-
-###### This demonstrates the % of shows that are movies each year, by maturity group (adult, teen, youth) for a specified country  
-
-###### The steps taken for to construct this plot are as follows:  
-* TBD  
-<br/>  
-<br/>  
-
 ## Analysis 1: United States shows by type and month added  
 
 #### Step 1: Parse the data by date_added  
