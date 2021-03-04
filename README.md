@@ -156,8 +156,8 @@ plt.show()
 
 ### US Movies By Month and Maturity Level  
 
-![US Movie by Month and Maturity](https://github.com/jmvincent/netflix/blob/main/USMoviesByMonthByMaturity.png)  
+![US Movie by Month and Maturity](https://github.com/jmvincent/netflix/blob/main/images/USMoviesByMonthByMaturity.png)  
 
 ### US TV By Month and Maturity Level  
 
-![US TV by Month and Maturity](https://github.com/jmvincent/netflix/blob/main/USTVByMonthByMaturity.png)  
+![US TV by Month and Maturity](https://github.com/jmvincent/netflix/blob/main/images/USTVByMonthByMaturity.png)
