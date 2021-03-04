@@ -26,10 +26,7 @@ import seaborn as sns # plotting output
 ### Analysis 2: Show type by maturity and year added 
 ###### This demonstrates the % of shows that are movies each year, by maturity group (adult, teen, youth) for a specified country
 ###### The steps taken for to construct this plot are as follows:
-~~* Parse the data by date_added~~
-~~* Combine ratings into viewer maturity category (youth, teen or adult)~~
-~~* Group and pivot data to create proper series~~
-~~* Construct plots~~
+TBD
 #### 
 #### 
 ## Analysis 1: United States shows by type and month added
