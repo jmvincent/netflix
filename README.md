@@ -1,6 +1,7 @@
 # Netflix Data Analysis {Python}
 This dataset consists of TV Shows and Movies listed on Netflix, [sourced from Kaggle](https://www.kaggle.com/shivamb/netflix-shows)
-
+#### 
+#### 
 Packages used:
 ```
 import numpy as np # linear algebra
@@ -11,15 +12,17 @@ import matplotlib.ticker as mtick # plot formatting
 from scipy.stats import norm # stats package for data aggregations
 import seaborn as sns # plotting output
 ```
-
+#### 
+#### 
 ### Analysis 1: United States shows by type and month added
 ###### This demonstrates the quantity of shows in the United States available on Netflix over time
 ###### The steps taken for to construct this plot are as follows:
-* Parse the data by date_added
-* Combine ratings into viewer maturity category (youth, teen or adult)
+* Parse the data by `date_added`
+* Combine `ratings` into viewer maturity category (youth, teen or adult)
 * Group and pivot data to create proper series
 * Construct plots
-
+#### 
+#### 
 ### Analysis 2: Show type by maturity and year added 
 ###### This demonstrates the % of shows that are movies each year, by maturity group (adult, teen, youth) for a specified country
 ###### The steps taken for to construct this plot are as follows:
@@ -27,16 +30,18 @@ import seaborn as sns # plotting output
 ~~* Combine ratings into viewer maturity category (youth, teen or adult)~~
 ~~* Group and pivot data to create proper series~~
 ~~* Construct plots~~
-
+#### 
+#### 
 ## Analysis 1: United States shows by type and month added
 #### Step 1: Parse the data by date_added
 In this series of code block we...
 1. Read the data into a dataframe
-2. Parse the date strings into month and year columns
-3. Drop all rows with null values in the analyzed columns
-4. Convert month and year to a datetime value
+2. Parse the `date_added` strings into `month_added` and `year_added` columns
+3. Drop all rows with null values in the analysis columns
+4. Convert month and year to a datetime value and store it in a new column `mmyy_added`
 5. Filter out early years of netflix streaming to ensure plentiful data in plotting
-6. Drop the old index from the original dataframe to not be confused in new clean and structured dataframe (`country_titles`)
+6. Filter out all non-US countries *Several countries do not have a large quantity of netflix shows*
+7. Drop the old index from the original dataframe to not be confused in new clean and structured dataframe (`country_titles`)
 ```
 df = pd.read_csv('netflix_titles.csv')
 df['month_added'] = df['date_added'].str.split().str[0]
@@ -80,6 +85,64 @@ country_tv = country_tv.drop('level_0', 1)
 #### 
 #### 
 #### Step 3: Group and pivot data to create proper series
+In this series of code block we...
+1. `groupby` each dataframe by maturity (`rating_class`) and month added (`mmyy_added`)
+2. `pivot` each dataframe to aggregate counts into columns that can be plotted
+3. Fill null values to 0
+4. Separate the dataframe into one dataframe for each `type` of show (`country_movies` and `country_tv`)
+5. Drop the old index from the original dataframe to not be confused in new clean and structured dataframes
+```
+dtrc_tv = country_tv.groupby(['mmyy_added','rating_class']).country.count().reset_index()
+dtrc_tv_pivot = dtrc_tv.pivot(
+    columns=['rating_class'],
+    index='mmyy_added',
+    values='country')
+dtrc_tv_pivot = dtrc_tv_pivot.fillna(0).reset_index()
+dtrc_movies = country_movies.groupby(['mmyy_added','rating_class']).country.count().reset_index()
+dtrc_movies_pivot = dtrc_movies.pivot(
+    columns=['rating_class'],
+    index='mmyy_added',
+    values='country')
+dtrc_movies_pivot = dtrc_movies_pivot.fillna(0).reset_index()
+# print(dtrc_movies_pivot)
+```
 #### 
 #### 
 #### Step 4: Construct plots
+In this series of code block we...
+1. Establish the figure sizes
+2. Create legend labels
+3. Plot each set of data
+4. Add labels and titles
+5. Save the figures
+
+```
+plt.figure(figsize=(20,10))
+legend = ['Adult','Teen','Youth']
+plt.plot(dtrc_movies_pivot['mmyy_added'], dtrc_movies_pivot['Adult'],color='red',marker='+')
+plt.plot(dtrc_movies_pivot['mmyy_added'], dtrc_movies_pivot['Teen'],color='blue',marker='+')
+plt.plot(dtrc_movies_pivot['mmyy_added'], dtrc_movies_pivot['Youth'],color='green',marker='+')
+plt.title('Netflix Movies added each month by Maturity level in the United States')
+plt.legend(legend)
+plt.xlabel('Time (month)')
+plt.ylabel('Count of Movies')
+plt.savefig('USMoviesByMonthByMaturity.png')
+plt.show()
+plt.clf()
+
+plt.figure(figsize=(20,10))
+legend = ['Adult','Teen','Youth']
+plt.plot(dtrc_tv_pivot['mmyy_added'], dtrc_tv_pivot['Adult'],color='red',marker='+')
+plt.plot(dtrc_tv_pivot['mmyy_added'], dtrc_tv_pivot['Teen'],color='blue',marker='+')
+plt.plot(dtrc_tv_pivot['mmyy_added'],  dtrc_tv_pivot['Youth'],color='green',marker='+')
+plt.title('Netflix TV Shows added each month by Maturity level in the United States')
+plt.legend(legend)
+plt.xlabel('Time (month)')
+plt.ylabel('Count of TV Shows')
+plt.savefig('USTVByMonthByMaturity.png')
+plt.show()
+```
+### US Movies By Month and Maturity Level
+Image1
+### US TV By Month and Maturity Level
+Image2
