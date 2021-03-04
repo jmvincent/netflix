@@ -140,6 +140,6 @@ plt.savefig('USTVByMonthByMaturity.png')
 plt.show()
 ```
 ### US Movies By Month and Maturity Level
-Image1
+![US Movie by Month and Maturity](image.jpg)
 ### US TV By Month and Maturity Level
-Image2
+![US TV by Month and Maturity](image.jpg)
